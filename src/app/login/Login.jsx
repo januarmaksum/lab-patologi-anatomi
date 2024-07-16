@@ -1,8 +1,24 @@
+"use client";
+
+import { useRouter } from "next/navigation";
 import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
 import { Panel } from "primereact/panel";
 
-export default function Home() {
+export default function Login() {
+  const router = useRouter();
+
+  const handleSubmit = () => {
+    const user = {
+      id: 30014,
+      kdUser: "vedika",
+      waktuLogin: "2024-07-16T04:29:08.500Z",
+    };
+    document.cookie = "datauserlogin=true; path=/";
+    localStorage.setItem("datauserlogin", JSON.stringify(user));
+    router.push("/dashboard");
+  };
+
   return (
     <div className="w-full mx-auto flex h-screen items-center justify-center">
       <Panel header="Lab Patologi Anatomi" className="w-96">
@@ -20,7 +36,7 @@ export default function Home() {
             Enter your username to reset your password.
           </small>
         </div>
-        <Button label="Login" className="w-full mt-5" />
+        <Button onClick={handleSubmit} label="Login" className="w-full mt-5" />
       </Panel>
     </div>
   );
