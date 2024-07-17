@@ -1,20 +1,20 @@
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-export const Alert = {
+export const alert = {
   dismiss() {
     toast.dismiss();
   },
-  success(messages) {
-    toast.success(messages);
+  success(text) {
+    toast.success(text);
   },
-  info(messages) {
-    toast.info(messages);
+  info(text) {
+    toast.info(text);
   },
-  warn(messages) {
-    toast.warn(messages);
+  warn(text) {
+    toast.warn(text);
   },
-  error(messages) {
-    toast.error(messages);
+  error(text) {
+    toast.error(text);
   },
 };

@@ -2,19 +2,43 @@
 @tailwind components;
 @tailwind utilities;
 
-
 html {
   font-size: 14px;
+}
+
+body {
+  @apply bg-slate-100;
 }
 
 .wrapper-login {
   background: linear-gradient(180deg, #f7941e 10%, rgba(33, 150, 243, 0) 30%);
 }
 
-.password-input-full > *, .password-input-full > * > input {
-  width: 100%
+.password-input-full > *,
+.password-input-full > * > input {
+  width: 100%;
 }
 
 .p-paginator-current {
   line-height: 1.5;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+.blinkColon {
+  animation: blink 1s step-start infinite;
+}
+
+#popup_menu_right li:hover,
+#popup_menu_right li:hover > div {
+  @apply bg-slate-100;
+}
+
+#popup_menu_right li,
+#popup_menu_right li > div {
+  background-color: transparent;
 }

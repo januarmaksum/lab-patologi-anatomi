@@ -1,16 +1,18 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AuthServices } from "@/services/authApi";
 import { useRouter } from "next/navigation";
 import { Button } from "primereact/button";
-import { Password } from 'primereact/password';
+import { Password } from "primereact/password";
 import { InputText } from "primereact/inputtext";
-import { Alert } from '@/components/Alert'
+import { alert } from "@/components/Alert";
+import useStore from "@/store/useStore";
 import Image from "next/image";
-import Logo from '@/assets/logo-rsabhk.png';
+import Logo from "@/assets/logo-rsabhk.png";
 
 export default function Login() {
+  const setUserData = useStore((state) => state.setUserData);
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [payload, setPayload] = useState({
@@ -27,30 +29,29 @@ export default function Login() {
     e.preventDefault();
     setIsSubmitting(true);
 
-    AuthServices.signin(payload).then((response) => {
-      const data = response.data;
+    AuthServices.signin(payload)
+      .then((response) => {
+        const data = response.data;
 
-      const dataUserLogin = {
-        id: data.id,
-        kdUser: data.namaUser,
-        waktuLogin: new Date(),
-      };
+        document.cookie = "datauserlogin=true; path=/";
+        localStorage.setItem("userData", JSON.stringify(data));
+        localStorage.setItem("authorization", response.messages["X-AUTH-TOKEN"]);
 
-      document.cookie = "datauserlogin=true; path=/";
-      sessionStorage.setItem('datauserlogin', JSON.stringify(dataUserLogin));
-      sessionStorage.setItem('pegawai', JSON.stringify(data.pegawai));
-      sessionStorage.setItem('sotk_coor', JSON.stringify(data.sotk_coor));
-      sessionStorage.setItem('statusCode', data.kelompokUser.kelompokUser);
-      sessionStorage.setItem('authorization', response.messages['X-AUTH-TOKEN']);
-      router.replace("/dashboard");
-    }).catch((error) => {
-      console.error('error login: ', error);
-      Alert.error('Gagal Login, periksa user & password Anda')
-    }).finally(() => {
-      setIsSubmitting(false);
-      console.log('success');
-    })
+        setUserData(data);
+        router.replace("/dashboard");
+      })
+      .catch((error) => {
+        console.error("error login: ", error);
+        alert.error("Gagal Login, periksa user & password Anda");
+      })
+      .finally(() => {
+        setIsSubmitting(false);
+      });
   };
+
+  useEffect(() => {
+    localStorage.clear();
+  }, []);
 
   const { namaUser, kataSandi } = payload;
 
@@ -59,12 +60,16 @@ export default function Login() {
       <div className="wrapper-login p-1 w-full max-w-[500px] rounded-[50px]">
         <div className="w-full bg-white px-16 py-16 rounded-[50px]">
           <div className="flex flex-col justify-center items-center gap-5 mb-14">
-            <Image src={Logo} width={250} alt="logo rsabhk" />
-            <h1 className="font-extrabold text-2xl text-orange-color">Lab Patologi Anatomi</h1>
+            <Image src={Logo} width={250} alt="logo rsabhk" priority />
+            <h1 className="font-extrabold text-2xl text-orange-color">
+              Lab Patologi Anatomi
+            </h1>
           </div>
           <form onSubmit={handleSubmit}>
             <div className="flex flex-col gap-2 mb-3">
-              <label htmlFor="namaUser" className="font-medium text-lg">Nama user</label>
+              <label htmlFor="namaUser" className="font-medium text-lg">
+                Nama user
+              </label>
               <InputText
                 id="namaUser"
                 name="namaUser"
@@ -77,7 +82,9 @@ export default function Login() {
               </small>
             </div>
             <div className="flex flex-col gap-2">
-              <label htmlFor="kataSandi" className="font-medium text-lg">Password</label>
+              <label htmlFor="kataSandi" className="font-medium text-lg">
+                Password
+              </label>
               <Password
                 id="kataSandi"
                 name="kataSandi"
@@ -99,6 +106,12 @@ export default function Login() {
               disabled={isSubmitting}
               raised
             />
+            <div className="text-xs text-center mt-3">
+              Username dan Password Menggunakan Login{" "}
+              <strong>
+                <mark>SMART</mark>
+              </strong>
+            </div>
           </form>
         </div>
       </div>
