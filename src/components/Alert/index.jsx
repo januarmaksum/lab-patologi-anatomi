@@ -1,5 +1,5 @@
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import "react-toastify/dist/ReactToastify.min.css";
 
 export const alert = {
   dismiss() {

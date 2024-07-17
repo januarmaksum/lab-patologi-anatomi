@@ -1,5 +1,5 @@
 export function middleware(request) {
-  const currentUser = request.cookies.get("datauserlogin");
+  const currentUser = request.cookies.get("islogin");
 
   if (request.nextUrl.pathname === "/") {
     if (currentUser) {

@@ -7,7 +7,7 @@ html {
 }
 
 body {
-  @apply bg-slate-100;
+  @apply bg-[#f3f0f0];
 }
 
 .wrapper-login {
@@ -41,4 +41,12 @@ body {
 #popup_menu_right li,
 #popup_menu_right li > div {
   background-color: transparent;
+}
+
+.k-table tbody tr:nth-child(even) td {
+  @apply bg-slate-100;
+}
+
+.k-table thead tr th {
+  @apply bg-slate-100;
 }

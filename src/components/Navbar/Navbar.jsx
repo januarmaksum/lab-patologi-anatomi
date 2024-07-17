@@ -11,7 +11,6 @@ import { useRouter } from "next/navigation";
 export default function Navbar() {
   const router = useRouter();
   const userData = useStore((state) => state.userData);
-  console.log("userData: ", userData);
   const logout = useStore((state) => state.logout);
   const menuRight = useRef(null);
   const [isClient, setIsClient] = useState(false);
@@ -35,9 +34,7 @@ export default function Navbar() {
 
   return (
     <header className="flex justify-between items-center sticky top-0 p-2 px-10 bg-white border-b border-b-gray-300 mb-5 z-50">
-      <div className="logo">
-        <Image src={Logo} alt="logo" width={170} priority />
-      </div>
+      <Image src={Logo} alt="logo" width={170} priority />
       {isClient && (
         <button
           type="button"

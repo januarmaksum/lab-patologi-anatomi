@@ -33,16 +33,15 @@ export default function Login() {
       .then((response) => {
         const data = response.data;
 
-        document.cookie = "datauserlogin=true; path=/";
+        document.cookie = "islogin=true; path=/";
         localStorage.setItem("userData", JSON.stringify(data));
         localStorage.setItem("authorization", response.messages["X-AUTH-TOKEN"]);
 
         setUserData(data);
         router.replace("/dashboard");
       })
-      .catch((error) => {
-        console.error("error login: ", error);
-        alert.error("Gagal Login, periksa user & password Anda");
+      .catch(() => {
+        alert.error("Gagal Login, periksa username atau password Anda");
       })
       .finally(() => {
         setIsSubmitting(false);

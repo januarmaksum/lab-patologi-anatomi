@@ -33,12 +33,13 @@ export default function Dashboard() {
             <Button label="Tambah Data" />
           </div>
           <DataTable
+            className="k-table"
             dataKey="nocm"
             value={dataLab}
             totalRecords={dataLab.length}
             paginator
             rows={5}
-            showGridlines
+            rowHover
             emptyMessage="Data tidak ditemukan"
             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} results"
             paginatorTemplate="CurrentPageReport PrevPageLink PageLinks NextPageLink"
