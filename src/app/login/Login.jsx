@@ -4,8 +4,11 @@ import { useState } from "react";
 import { AuthServices } from "@/services/authApi";
 import { useRouter } from "next/navigation";
 import { Button } from "primereact/button";
+import { Password } from 'primereact/password';
 import { InputText } from "primereact/inputtext";
-import { Panel } from "primereact/panel";
+import { Alert } from '@/components/Alert'
+import Image from "next/image";
+import Logo from '@/assets/logo-rsabhk.png';
 
 export default function Login() {
   const router = useRouter();
@@ -42,6 +45,7 @@ export default function Login() {
       router.replace("/dashboard");
     }).catch((error) => {
       console.error('error login: ', error);
+      Alert.error('Gagal Login, periksa user & password Anda')
     }).finally(() => {
       setIsSubmitting(false);
       console.log('success');
@@ -51,41 +55,53 @@ export default function Login() {
   const { namaUser, kataSandi } = payload;
 
   return (
-    <div className="w-full mx-auto flex h-screen items-center justify-center">
-      <Panel header="Lab Patologi Anatomi" className="w-96">
-        <form onSubmit={handleSubmit}>
-          <div className="flex flex-col gap-2 mb-3">
-            <label htmlFor="namaUser">Username</label>
-            <InputText
-              id="namaUser"
-              name="namaUser"
-              value={namaUser}
-              onChange={handleChange}
-            />
-            <small className="hidden">
-              Enter your username to reset your password.
-            </small>
+    <div className="w-full mx-auto flex h-screen items-center justify-center bg-[#f3f0f0]">
+      <div className="wrapper-login p-1 w-full max-w-[500px] rounded-[50px]">
+        <div className="w-full bg-white px-16 py-16 rounded-[50px]">
+          <div className="flex flex-col justify-center items-center gap-5 mb-14">
+            <Image src={Logo} width={250} alt="logo rsabhk" />
+            <h1 className="font-extrabold text-2xl text-orange-color">Lab Patologi Anatomi</h1>
           </div>
-          <div className="flex flex-col gap-2">
-            <label htmlFor="kataSandi">Password</label>
-            <InputText
-              id="kataSandi"
-              name="kataSandi"
-              value={kataSandi}
-              onChange={handleChange}
+          <form onSubmit={handleSubmit}>
+            <div className="flex flex-col gap-2 mb-3">
+              <label htmlFor="namaUser" className="font-medium text-lg">Nama user</label>
+              <InputText
+                id="namaUser"
+                name="namaUser"
+                value={namaUser}
+                onChange={handleChange}
+                required
+              />
+              <small className="hidden">
+                Enter your username to reset your password.
+              </small>
+            </div>
+            <div className="flex flex-col gap-2">
+              <label htmlFor="kataSandi" className="font-medium text-lg">Password</label>
+              <Password
+                id="kataSandi"
+                name="kataSandi"
+                value={kataSandi}
+                onChange={handleChange}
+                required
+                feedback={false}
+                toggleMask
+                className="w-full !flex password-input-full"
+              />
+              <small className="hidden">
+                Enter your username to reset your password.
+              </small>
+            </div>
+            <Button
+              type="submit"
+              label="LOGIN"
+              className="w-full mt-8 bg-primary-color border-primary-color hover:bg-primary-color/90 hover:border-primary-color/90"
+              disabled={isSubmitting}
+              raised
             />
-            <small className="hidden">
-              Enter your username to reset your password.
-            </small>
-          </div>
-          <Button
-            type="submit"
-            label="Login"
-            className="w-full mt-5"
-            disabled={isSubmitting}
-          />
-        </form>
-      </Panel>
+          </form>
+        </div>
+      </div>
     </div>
   );
 }

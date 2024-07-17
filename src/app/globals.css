@@ -1,14 +1,20 @@
-@layer tailwind-base, tailwind-utilities;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@layer tailwind-base {
-  @tailwind base;
-}
-
-@layer tailwind-utilities {
-  @tailwind components;
-  @tailwind utilities;
-}
 
 html {
   font-size: 14px;
+}
+
+.wrapper-login {
+  background: linear-gradient(180deg, #f7941e 10%, rgba(33, 150, 243, 0) 30%);
+}
+
+.password-input-full > *, .password-input-full > * > input {
+  width: 100%
+}
+
+.p-paginator-current {
+  line-height: 1.5;
 }
