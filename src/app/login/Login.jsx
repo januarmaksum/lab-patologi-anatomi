@@ -56,7 +56,7 @@ export default function Login() {
 
   return (
     <div className="w-full mx-auto flex h-screen items-center justify-center bg-[#f3f0f0]">
-      <div className="wrapper-login p-1 w-full max-w-[500px] rounded-[50px]">
+      <div className="wrapper-login p-1 w-full max-w-[500px] rounded-[50px] -mt-16">
         <div className="w-full bg-white px-16 py-16 rounded-[50px]">
           <div className="flex flex-col justify-center items-center gap-5 mb-14">
             <Image src={Logo} width={250} alt="logo rsabhk" priority />
@@ -65,7 +65,7 @@ export default function Login() {
             </h1>
           </div>
           <form onSubmit={handleSubmit}>
-            <div className="flex flex-col gap-2 mb-3">
+            <div className="flex flex-col gap-2 mb-6">
               <label htmlFor="namaUser" className="font-medium text-lg">
                 Nama user
               </label>
@@ -76,9 +76,6 @@ export default function Login() {
                 onChange={handleChange}
                 required
               />
-              <small className="hidden">
-                Enter your username to reset your password.
-              </small>
             </div>
             <div className="flex flex-col gap-2">
               <label htmlFor="kataSandi" className="font-medium text-lg">
@@ -94,19 +91,17 @@ export default function Login() {
                 toggleMask
                 className="w-full !flex password-input-full"
               />
-              <small className="hidden">
-                Enter your username to reset your password.
-              </small>
             </div>
             <Button
-              type="submit"
-              label="LOGIN"
-              className="w-full mt-8 bg-primary-color border-primary-color hover:bg-primary-color/90 hover:border-primary-color/90"
-              disabled={isSubmitting}
               raised
+              type="submit"
+              label="Masuk"
+              className="w-full mt-8 bg-primary-color border-primary-color hover:bg-primary-color/90 hover:border-primary-color/90 tracking-wider uppercase"
+              disabled={isSubmitting}
+              loading={isSubmitting}
             />
             <div className="text-xs text-center mt-3">
-              Username dan Password Menggunakan Login{" "}
+              Nama user dan Password Menggunakan Login{" "}
               <strong>
                 <mark>SMART</mark>
               </strong>

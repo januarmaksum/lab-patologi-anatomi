@@ -11,7 +11,7 @@ import Footer from "@/components/Footer";
 import "primeicons/primeicons.css";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"], display: "swap" });
 
 export default function RootLayout({ children }) {
   const pathname = usePathname();
